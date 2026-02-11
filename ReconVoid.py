@@ -2,25 +2,32 @@ import os
 from modules.check_dependencies import check_dependencies
 import modules.run_commands as run_command # IN DEVELOPMENT
 
+# ANSI escape codes for terminal colors!
+GREEN = '\033[92m'
+YELLOW = '\033[33m'
+RESET = '\033[0m'
+
 def print_ascii_art():
     """Prints ASCII art for ReconVoid"""
     ascii_art = r"""
-|--------------------------------------------------------------------------|
-| ██████╗ ███████╗ ██████╗ ██████╗ ███╗   ██╗██╗   ██╗ ██████╗ ██╗██████╗  |
-| ██╔══██╗██╔════╝██╔════╝██╔═══██╗████╗  ██║██║   ██║██╔═══██╗██║██╔══██╗ |
-| ██████╔╝█████╗  ██║     ██║   ██║██╔██╗ ██║██║   ██║██║   ██║██║██║  ██║ |
-| ██╔══██╗██╔══╝  ██║     ██║   ██║██║╚██╗██║╚██╗ ██╔╝██║   ██║██║██║  ██║ |
-| ██║  ██║███████╗╚██████╗╚██████╔╝██║ ╚████║ ╚████╔╝ ╚██████╔╝██║██████╔╝ |
-| ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝  ╚═══╝   ╚═════╝ ╚═╝╚═════╝  |
-|--------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------|
+|     /$$$$$$$                                          /$$    /$$          /$$       /$$    |
+|    | $$__  $$                                        | $$   | $$         |__/      | $$    |
+|    | $$  \ $$  /$$$$$$   /$$$$$$$  /$$$$$$  /$$$$$$$ | $$   | $$ /$$$$$$  /$$  /$$$$$$$    |
+|    | $$$$$$$/ /$$__  $$ /$$_____/ /$$__  $$| $$__  $$|  $$ / $$//$$__  $$| $$ /$$__  $$    |
+|    | $$__  $$| $$$$$$$$| $$      | $$  \ $$| $$  \ $$ \  $$ $$/| $$  \ $$| $$| $$  | $$    |
+|    | $$  \ $$| $$_____/| $$      | $$  | $$| $$  | $$  \  $$$/ | $$  | $$| $$| $$  | $$    |
+|    | $$  | $$|  $$$$$$$|  $$$$$$$|  $$$$$$/| $$  | $$   \  $/  |  $$$$$$/| $$|  $$$$$$$    |
+|    |__/  |__/ \_______/ \_______/ \______/ |__/  |__/    \_/    \______/ |__/ \_______/    |
+|--------------------------------------------------------------------------------------------|
     """
-    print(ascii_art)
+    print(GREEN + ascii_art + RESET)
 
 
-def menu():
-    print("\nTo exit the Recon menu:")
+def Main_Menu():
+    print(YELLOW + "\nTo exit the Recon menu:" + RESET)
     print("0. Leave the Script")
-    print("Select a Recon option:")
+    print(YELLOW + "Select a Recon option:" + RESET)
     print("1. WebApps")
     print("2. Option 2")
     print("3. Option 3")
@@ -35,12 +42,12 @@ def menu():
             os.system("clear")
             print_ascii_art()
             print("Invalid input. Try Again Please!")
-            return menu()
+            return Main_Menu()
     except ValueError:
         os.system("clear")
         print_ascii_art()
         print("Invalid input. Try Again Please!")
-        return menu()
+        return Main_Menu()
 
 
 def option_check(selection):
@@ -57,7 +64,7 @@ if __name__ == "__main__":
     check_dependencies()
     while True:
         print_ascii_art()
-        selection = menu()
+        selection = Main_Menu()
         option_check(selection)
         if selection == 0:
             break
