@@ -1,29 +1,6 @@
 import os
-import sys
-import platform
-import time
-
-
-def check_dependencies():
-    if platform.system().lower() == 'linux':
-        print("OS is supported!")
-    else:
-        print("Are you attempting to run this in an unsupported OS? Please make sure you are on Linux!")
-        sys.exit(1)
-    
-    print("Checking if dependancy packages are installed...")
-    time.sleep(0.2)
-
-    if os.path.exists('/usr/bin/subfinder'):
-        print("Subfinder... ✅")
-        time.sleep(0.2)
-    else:
-        print("Error: subfinder is not installed or not found at /usr/bin/subfinder")
-        sys.exit(1)
-    
-    print("All dependencies are met! The tool is fully functional!")
-    time.sleep(1)
-
+from modules.check_dependencies import check_dependencies
+import modules.run_commands as run_command # IN DEVELOPMENT
 
 def print_ascii_art():
     """Prints ASCII art for ReconVoid"""
@@ -41,26 +18,46 @@ def print_ascii_art():
 
 
 def menu():
-    """Display a selection menu and get user input"""
-    print("\nSelect an option:")
-    print("1. Option 1")
+    print("\nTo exit the Recon menu:")
+    print("0. Leave the Script")
+    print("Select a Recon option:")
+    print("1. WebApps")
     print("2. Option 2")
     print("3. Option 3")
     print("4. Option 4")
-    print("5. Exit")
-    
-    # Get user input and store it in the selection variable
+
     try:
-        selection = int(input("\nEnter your choice (1-5): "))
-        return selection
+        selection = int(input("\nSelect an option (1-4, 0 to exit): "))
+        if selection in [0, 1, 2, 3, 4]:
+            os.system("clear")
+            return selection
+        else:
+            os.system("clear")
+            print_ascii_art()
+            print("Invalid input. Try Again Please!")
+            return menu()
     except ValueError:
-        print("Invalid input. Please enter a number.")
-        return None
+        os.system("clear")
+        print_ascii_art()
+        print("Invalid input. Try Again Please!")
+        return menu()
+
+
+def option_check(selection):
+    if selection == 1:
+        print(f"You selected option {selection}")
+    elif selection in [2, 3, 4]:
+        print(f"Option {selection} is currently in development. Use an available option.")
+    # Note: selection == 0 is handled in the main while loop to break out
+    # DEV NOTE: these print() commands are TEMPERARY, they are to be removed in the future!
 
 
 if __name__ == "__main__":
-    check_dependencies()  # Check dependencies before proceeding
-    print_ascii_art()
-    selection = menu()
-    if selection is not None:
-        print(f"You selected option {selection}")
+    os.system("clear")
+    check_dependencies()
+    while True:
+        print_ascii_art()
+        selection = menu()
+        option_check(selection)
+        if selection == 0:
+            break
