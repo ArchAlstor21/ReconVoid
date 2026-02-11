@@ -11,15 +11,18 @@ def check_dependencies():
         print("Are you attempting to run this in an unsupported OS? Please make sure you are on Linux!")
         sys.exit(1)
     
+    print("Checking if dependancy packages are installed...")
+    time.sleep(0.2)
+
     if os.path.exists('/usr/bin/subfinder'):
-        print("Subfinder Installed... ✅")
-        time.sleep(1)
+        print("Subfinder... ✅")
+        time.sleep(0.2)
     else:
         print("Error: subfinder is not installed or not found at /usr/bin/subfinder")
         sys.exit(1)
     
     print("All dependencies are met! The tool is fully functional!")
-    time.sleep(2)
+    time.sleep(1)
 
 
 def print_ascii_art():
