@@ -6,11 +6,12 @@ def option_check(selection):
 
     match selection:
         case 0:
-            pass
+            return False
         case 1:
-            Core.WebsiteMenu()
+            Core.WebAppMenu()
+            return True
         case _:
-            pass
+            return True
         # extend later with more options
 
 
@@ -18,8 +19,10 @@ if __name__ == "__main__":
 
     os.system("clear")
     Core.check_dependencies()
+
     while True:
+
         selection = Core.Main_Menu()
-        option_check(selection)
-        if selection == 0:
+        result = option_check(selection)
+        if result == False:
             break

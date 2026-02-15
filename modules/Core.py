@@ -56,14 +56,24 @@ def check_dependencies():
 
 # NOTE: MODULAR MENU FOR ALL MENUS
 def Menu(description, ZeroFunction, *options):
-    
+
     print_ascii_art()
     print(YELLOW + "OTHER:" +  RESET)
     print("0. " + ZeroFunction)
     print(YELLOW + f"{description}" + RESET)
-    
+
     for i, option in enumerate(options, 1):
         print(f"{i}. {option}")
+
+    # Gets user option selection and validates it
+    menu_array = list(options)
+    selection = Users_Selection(menu_array)
+    
+    if selection != None:
+        return selection
+    else:
+        os.system("clear")
+        return None
 
 
 def Users_Selection(menu_array):
@@ -72,61 +82,60 @@ def Users_Selection(menu_array):
     max_option = len(menu_array)
     valid_range = list(range(0, max_option + 1))
 
-    while True:  # Keep asking until valid input is received
-
-        try:
-            selection = int(input("\nSelect an option: "))
-            if selection in valid_range:
-                os.system("clear")
-                return selection
-            else:
-                print(f"Invalid input. Please select a valid option (0-{max_option}).\n")
-        except ValueError:
-            print(f"Invalid input. Please enter a number (0-{max_option}).\n")
-
+    try:
+        selection = int(input("\nSelect an option: "))
+        if selection in valid_range:
+            os.system("clear")
+            return selection
+        else:
+            return None
+    except ValueError:
+        return None
 
 
 def Main_Menu():
 
-    menu_options = [
-        "WebApps",
-        "Option 2",
-        "Option 3",
-        "Option 4",
-        # Add more options here as needed
-    ]
+    while True:
+        menu_options = [
+            "WebApps",
+            "Option 2",
+            "Option 3",
+            "Option 4",
+            # Add more options here as needed
+        ]
 
-    Menu("Select an option:", "To exit the script", *menu_options)
+        selection = Menu("Select an option:", "To exit the script", *menu_options)
 
-    return Users_Selection(menu_options)
+        if selection is not None:
+            return selection
 
 
-def WebsiteMenu():
+def WebAppMenu():
 
-    def option_check(selection):
+    def webapp_option_check(selection):
+
+        import WebAppCommands
 
         match selection:
             case 0:
-                pass
+                return False
             case 1:
-                pass
+                WebAppCommands.Subfinder()
+                return True
             case _:
-                pass
-            # extend later with more tools
+                return True
 
+    while True:
 
-    os.system("clear")
-    print_ascii_art()
+        menu_options = [
+            "Subfinder"
+            # Add more options here as needed
+        ]
 
-    website_menu_options = [
-        "Subfinder"
-        # add more as you extend the software
-    ]
-
-    Menu("Select an option:", "To leave this menu", "Subfinder")
-
-    selection = Users_Selection(website_menu_options)
-
-    option_check(selection)
-
+        selection = Menu("Select an option:", "To leave this menu", *menu_options)
+        
+        if selection != None:
+            result = webapp_option_check(selection)
+            if result == False:
+                break
 
