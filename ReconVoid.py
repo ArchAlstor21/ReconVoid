@@ -1,5 +1,12 @@
-import os
+import os, sys
 import modules.Core as Core
+
+
+def check_root_privileges():
+    if os.geteuid() != 0:
+        print("Error: This tool requires root privileges to run")
+        print("Please run this script as root (use sudo python ./ReconVoid.py)")
+        sys.exit(1)
 
 
 def option_check(selection):
@@ -17,6 +24,8 @@ def option_check(selection):
 
 if __name__ == "__main__":
 
+    check_root_privileges()
+    
     os.system("clear")
     Core.check_dependencies()
 
